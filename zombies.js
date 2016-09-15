@@ -130,6 +130,7 @@ function Player(name, health, strength, speed) {
 Player.prototype.checkPack = function() {
   console.log('Contents: ' + this.getPack().join(', '));
 };
+
 /**
  * Player Class Method => takeItem(item)
  * -----------------------------
@@ -148,6 +149,19 @@ Player.prototype.checkPack = function() {
  * @return {boolean} true/false     Whether player was able to store item in pack.
  */
 
+Player.prototype.takeItem = function(item) {
+  if(item instanceof Item) {
+    if(this.getPack().length < 3) {
+      this.getPack().push(item);
+      console.log('Added', item.name, 'to pack.');
+      return true;
+    }
+    console.log('Pack is full. The', item.name, 'can\'t be picked up.');
+    return false;
+  }
+  console.log('That can\'t be picked up.');
+  return false;
+};
 
 /**
  * Player Class Method => discardItem(item)
