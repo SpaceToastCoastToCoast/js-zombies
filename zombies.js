@@ -58,13 +58,18 @@ Weapon.prototype = Object.create(Item.prototype,
  * @property {number} energy
  */
 
+function Food(name, energy) {
+  Item.call(this, name);
+  this.energy = energy;
+}
 
 /**
  * Food Extends Item Class
  * -----------------------------
  */
 
-
+Food.prototype = Object.create(Item.prototype,
+  {constructor: {value: Item}});
 
 /**
  * Class => Player(name, health, strength, speed)
