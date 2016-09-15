@@ -332,6 +332,9 @@ Player.prototype.eat = function(itemToEat) {
  * @param {Item/Weapon/Food} item   The item to use.
  */
 
+Player.prototype.useItem = function(item) {
+
+};
 
 /**
  * Player Class Method => equippedWith()
@@ -347,6 +350,14 @@ Player.prototype.eat = function(itemToEat) {
  * @return {string/boolean}   Weapon name or false if nothing is equipped.
  */
 
+Player.prototype.equippedWith = function() {
+  if(this.equipped !== false) {
+    console.log(this.name, 'has the', this.equipped.name, 'equipped.');
+    return this.equipped.name;
+  }
+  console.log(this.name, 'isn\'t equipped with any weapon.');
+  return this.equipped;
+};
 
 /**
  * Class => Zombie(health, strength, speed)
