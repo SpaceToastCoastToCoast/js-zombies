@@ -153,10 +153,10 @@ Player.prototype.takeItem = function(item) {
   if(item instanceof Item) {
     if(this.getPack().length < 3) {
       this.getPack().push(item);
-      console.log('Added', item.name, 'to pack.');
+      console.log(this.name, 'added the', item.name, 'to pack.');
       return true;
     }
-    console.log('Pack is full. The', item.name, 'can\'t be picked up.');
+    console.log(this.name, '\'s pack is full. The', item.name, 'can\'t be picked up.');
     return false;
   }
   console.log('That can\'t be picked up.');
@@ -189,6 +189,20 @@ Player.prototype.takeItem = function(item) {
  * @return {boolean} true/false     Whether player was able to remove item from pack.
  */
 
+Player.prototype.discardItem = function(item) {
+  if(item instanceof Item) {
+    var itemIndex = this.getPack().indexOf(item);
+    if(itemIndex >= 0) {
+      this.getPack().splice(itemIndex, 1);
+      console.log('The ', item.name, 'was removed from', this.name, '\'s pack.');
+      return true;
+    }
+    console.log('There is no', item.name, 'in', this.name, '\'s pack to remove.');
+    return false;
+  }
+  console.log('That isn\'t an item.');
+  return false;
+};
 
 /**
  * Player Class Method => equip(itemToEquip)
