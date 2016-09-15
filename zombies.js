@@ -283,6 +283,41 @@ Player.prototype.equip = function(itemToEquip) {
  * @param {Food} itemToEat  The food item to eat.
  */
 
+Player.prototype.eat = function(itemToEat) {
+  if(itemToEat instanceof Item) {
+    if(itemToEat instanceof Food) {
+      var foodIndex = this.getPack().indexOf(itemToEat);
+      if(foodIndex >= 0) {
+        if(this.health === this.getMaxHealth()) {
+          //if already at full health
+          console.log(this.name, 'is at full health and decided to save the',
+           itemToEat.name, 'for when it\'s useful.');
+        } else {
+          this.discardItem(itemToEat);
+          //increase player's health by food.energy
+          var newHealth = this.health + itemToEat.energy;
+          //make sure health doesn't exceed maximum
+          if(newHealth > this.getMaxHealth()) {
+            newHealth = this.getMaxHealth();
+          }
+          var healthRestored = (newHealth - this.health);
+          //heal the player
+          this.health = newHealth;
+          console.log(this.name, 'ate the', itemToEat.name, 'and regained',
+           healthRestored, 'health.');
+        }
+      } else {
+        console.log(this.name, 'can\'t eat any',
+         itemToEat.name, 'they aren\'t carrying.');
+      }
+    } else {
+      console.log('In a survival situation, it\'s not a good idea to eat a',
+       itemToEat.name + '.');
+    }
+  } else {
+    console.log('That can\'t be eaten.');
+  }
+};
 
 /**
  * Player Class Method => useItem(item)
