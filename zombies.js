@@ -156,7 +156,7 @@ Player.prototype.takeItem = function(item) {
       console.log(this.name, 'added the', item.name, 'to the pack.');
       return true;
     }
-    console.log(this.name, '\'s pack is full. The', item.name, 'can\'t be picked up.');
+    console.log(this.name + '\'s pack is full. The', item.name, 'can\'t be picked up.');
     return false;
   }
   console.log('That can\'t be picked up.');
@@ -194,10 +194,10 @@ Player.prototype.discardItem = function(item) {
     var itemIndex = this.getPack().indexOf(item);
     if(itemIndex >= 0) {
       this.getPack().splice(itemIndex, 1);
-      console.log('The', item.name, 'was removed from', this.name, '\'s pack.');
+      console.log('The', item.name, 'was removed from', this.name + '\'s pack.');
       return true;
     }
-    console.log('There is no', item.name, 'in', this.name, '\'s pack to remove.');
+    console.log('There is no', item.name, 'in', this.name + '\'s pack to remove.');
     return false;
   }
   console.log('That isn\'t an item.');
@@ -333,6 +333,22 @@ Player.prototype.eat = function(itemToEat) {
  */
 
 Player.prototype.useItem = function(item) {
+  if(item instanceof Item) {
+    var itemIndex = this.getPack().indexOf(item);
+    if(itemIndex >= 0) {
+      if(item instanceof Weapon) {
+        this.equip(item);
+      } else if (item instanceof Food) {
+        this.eat(item);
+      } else {
+        console.log(this.name, 'doesn\'t know what to do with this', item.name + '.');
+      }
+    } else {
+      console.log(this.name, 'can\'t use any', item.name, 'they don\'t have.');
+    }
+  } else {
+    console.log('That can\'t be used right now.');
+  }
 
 };
 
