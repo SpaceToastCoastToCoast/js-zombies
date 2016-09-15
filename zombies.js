@@ -34,13 +34,13 @@ function Weapon(name, damage) {
   this.damage = damage;
 }
 
-
 /**
  * Weapon Extends Item Class
  * -----------------------------
  */
 
-
+Weapon.prototype = Object.create(Item.prototype,
+  {constructor: {value: Item}});
 
 /**
  * Class => Food(name, energy)
