@@ -9,7 +9,12 @@
  */
 
 function Item(name) {
-  this.name = name;
+  //type validation
+  if(name instanceof String || typeof name === 'string') {
+    this.name = name;
+  } else {
+    throw new TypeError('name must be a String');
+  }
 }
 
 
@@ -31,7 +36,12 @@ function Item(name) {
 
 function Weapon(name, damage) {
   Item.call(this, name);
-  this.damage = damage;
+  //type validation
+  if(typeof damage === 'number' || damage instanceof Number) {
+    this.damage = damage;
+  } else {
+    throw new TypeError('damage must be a Number');
+  }
 }
 
 /**
@@ -60,7 +70,12 @@ Weapon.prototype = Object.create(Item.prototype,
 
 function Food(name, energy) {
   Item.call(this, name);
-  this.energy = energy;
+  //type validation
+  if(typeof energy === 'number' || energy instanceof Number) {
+    this.energy = energy;
+  } else {
+    throw new TypeError('energy must be a Number');
+  }
 }
 
 /**
@@ -94,10 +109,31 @@ Food.prototype = Object.create(Item.prototype,
  */
 
 function Player(name, health, strength, speed) {
-  this.name = name;
-  this.health = health;
-  this.strength = strength;
-  this.speed = speed;
+  //type validation
+  if(name instanceof String || typeof name === 'string') {
+    this.name = name;
+  } else {
+    throw new TypeError('name must be a String');
+  }
+  if(typeof health === 'number' || health instanceof Number) {
+    if(health > 0) {
+      this.health = health;
+    } else {
+      throw new RangeError('health must be greater than zero');
+    }
+  } else {
+    throw new TypeError('health must be a Number');
+  }
+  if(typeof strength === 'number' || strength instanceof Number) {
+    this.strength = strength;
+  } else {
+    throw new TypeError('strength must be a Number');
+  }
+  if(typeof speed === 'number' || speed instanceof Number) {
+    this.speed = speed;
+  } else {
+    throw new TypeError('damage must be a Number');
+  }
 
   this._pack = [];
   this._maxHealth = this.health;
@@ -392,10 +428,22 @@ Player.prototype.equippedWith = function() {
  */
 
 function Zombie(health, strength, speed) {
-  this._maxHealth = health;
-  this.health = health;
-  this.strength = strength;
-  this.speed = speed;
+  if(typeof health === 'number' || health instanceof Number) {
+    this._maxHealth = health;
+    this.health = health;
+  } else {
+    throw new TypeError('health must be a Number');
+  }
+  if(typeof strength === 'number' || strength instanceof Number) {
+    this.strength = strength;
+  } else {
+    throw new TypeError('strength must be a Number');
+  }
+  if(typeof speed === 'number' || speed instanceof Number) {
+    this.speed = speed;
+  } else {
+    throw new TypeError('speed must be a Number');
+  }
   this.isAlive = true;
 }
 
