@@ -153,7 +153,7 @@ Player.prototype.takeItem = function(item) {
   if(item instanceof Item) {
     if(this.getPack().length < 3) {
       this.getPack().push(item);
-      console.log(this.name, 'added the', item.name, 'to pack.');
+      console.log(this.name, 'added the', item.name, 'to the pack.');
       return true;
     }
     console.log(this.name, '\'s pack is full. The', item.name, 'can\'t be picked up.');
@@ -194,7 +194,7 @@ Player.prototype.discardItem = function(item) {
     var itemIndex = this.getPack().indexOf(item);
     if(itemIndex >= 0) {
       this.getPack().splice(itemIndex, 1);
-      console.log('The ', item.name, 'was removed from', this.name, '\'s pack.');
+      console.log('The', item.name, 'was removed from', this.name, '\'s pack.');
       return true;
     }
     console.log('There is no', item.name, 'in', this.name, '\'s pack to remove.');
@@ -224,6 +224,45 @@ Player.prototype.discardItem = function(item) {
  * @param {Weapon} itemToEquip  The weapon item to equip.
  */
 
+Player.prototype.equip = function(itemToEquip) {
+  if(itemToEquip instanceof Item) {
+    if(itemToEquip instanceof Weapon) {
+      var itemIndex = this.getPack().indexOf(itemToEquip);
+      if(itemIndex >= 0) {
+        if(this.equipped !== false) {
+          if(this.equipped !== undefined) {
+            //replace the item in the pack with value of this.isEquipped
+            this.discardItem(itemToEquip);
+            console.log(this.name, 'swapped the', this.equipped.name,
+              'they had equipped for the', itemToEquip.name, 'in the pack.');
+            this.takeItem(this.equipped);
+            this.equipped = itemToEquip;
+          } else {
+            //if they weren't equipping anything
+            this.discardItem(itemToEquip);
+            console.log(this.name, 'equipped the', itemToEquip.name, 'from their pack.');
+            this.equipped = itemToEquip;
+          }
+        } else {
+          //remove the item from the pack and set this.isEquipped to the item
+          this.equipped = itemToEquip;
+          this.discardItem(itemToEquip);
+          console.log(this.name, 'has taken the', itemToEquip.name,
+           'out of the pack to equip it.');
+        }
+      } else {
+        //if the item is not in the pack
+        console.log(this.name, 'isn\'t carrying any', itemToEquip.name + 's.');
+      }
+    } else {
+      //if the item is not a weapon
+      console.log(this.name, 'can\'t possibly hope to use', itemToEquip.name, 'as a weapon.');
+    }
+  } else {
+    //if the item is not a valid item
+    console.log('That isn\'t even an item.');
+  }
+};
 
 /**
  * Player Class Method => eat(itemToEat)
