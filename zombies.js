@@ -468,6 +468,9 @@ StrongZombie.prototype = Object.create(Zombie.prototype,
  * @param {number} speed            The zombie's speed.
  */
 
+function RangedZombie(health, strength, speed) {
+  Zombie.call(this, health, strength, speed);
+}
 
 /**
  * StrongZombie Extends Zombie Class
