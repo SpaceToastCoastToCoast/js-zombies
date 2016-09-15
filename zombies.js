@@ -128,7 +128,7 @@ function Player(name, health, strength, speed) {
  */
 
 Player.prototype.checkPack = function() {
-
+  console.log('Contents: ' + this.getPack().join(', '));
 };
 /**
  * Player Class Method => takeItem(item)
