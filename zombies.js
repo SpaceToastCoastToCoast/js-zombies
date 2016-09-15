@@ -256,7 +256,7 @@ Player.prototype.equip = function(itemToEquip) {
       }
     } else {
       //if the item is not a weapon
-      console.log(this.name, 'can\'t possibly hope to use', itemToEquip.name, 'as a weapon.');
+      console.log(this.name, 'can\'t possibly hope to use this', itemToEquip.name, 'as a weapon.');
     }
   } else {
     //if the item is not a valid item
@@ -391,6 +391,13 @@ Player.prototype.equippedWith = function() {
  * @property {boolean} isAlive      Default value should be `true`.
  */
 
+function Zombie(health, strength, speed) {
+  this._maxHealth = health;
+  this.health = health;
+  this.strength = strength;
+  this.speed = speed;
+  this.isAlive = true;
+}
 
 /**
  * Class => FastZombie(health, strength, speed)
@@ -407,13 +414,17 @@ Player.prototype.equippedWith = function() {
  * @param {number} speed            The zombie's speed.
  */
 
+function FastZombie(health, strength, speed) {
+  Zombie.call(this, health, strength, speed);
+}
 
 /**
  * FastZombie Extends Zombie Class
  * -----------------------------
  */
 
-
+FastZombie.prototype = Object.create(Zombie.prototype,
+  { constructor: { value : Zombie } });
 
 /**
  * Class => StrongZombie(health, strength, speed)
