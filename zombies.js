@@ -441,13 +441,17 @@ FastZombie.prototype = Object.create(Zombie.prototype,
  * @param {number} speed            The zombie's speed.
  */
 
+function StrongZombie(health, strength, speed) {
+  Zombie.call(this, health, strength, speed);
+}
 
 /**
  * StrongZombie Extends Zombie Class
  * -----------------------------
  */
 
-
+StrongZombie.prototype = Object.create(Zombie.prototype,
+  { constructor: { value : Zombie } });
 
 /**
  * Class => RangedZombie(health, strength, speed)
@@ -470,7 +474,8 @@ FastZombie.prototype = Object.create(Zombie.prototype,
  * -----------------------------
  */
 
-
+RangedZombie.prototype = Object.create(Zombie.prototype,
+  { constructor: { value : Zombie } });
 
 /**
  * Class => ExplodingZombie(health, strength, speed)
@@ -493,8 +498,8 @@ FastZombie.prototype = Object.create(Zombie.prototype,
  * -----------------------------
  */
 
-
-
+ExplodingZombie.prototype = Object.create(Zombie.prototype,
+  { constructor: { value : Zombie } });
 
 /**
  * Sample run.
