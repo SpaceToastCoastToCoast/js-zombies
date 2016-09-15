@@ -29,6 +29,11 @@ function Item(name) {
  * @property {number} damage
  */
 
+function Weapon(name, damage) {
+  Item.call(this, name);
+  this.damage = damage;
+}
+
 
 /**
  * Weapon Extends Item Class
